@@ -1,0 +1,16 @@
+<div class="row" style="margin-top: 12em" ng-controller="searchTraining">
+    <div class="col-md-4"></div>
+    <div class="col-md-4" style="padding: 10px;">
+        <h4>{{$message}}</h4>
+        <br>
+            <p style="font: italic bold 22px/40px Georgia, serif;">CybageNet
+            Search Book</p>
+        <br>
+        <form>
+            <input type="text" ng-model="training.name" class="form-control" autofocus>
+            <br>
+            <br> <input type="submit" class="btn btn-primary"
+                value="Search" style="float: right" ng-click="search()">
+        </form>
+    </div>
+</div>

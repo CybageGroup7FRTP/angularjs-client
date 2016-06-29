@@ -17,6 +17,12 @@
     .when('/registertraining',{
         templateUrl: 'registertraining.html'
     })
+    .when('/deletetraining',{
+        templateUrl: 'deletetraining.html'
+    })
+    .when('/searchtraining',{
+        templateUrl: 'searchtraining.html'
+    })
     .otherwise({
  		redirectTo:'/'
  	});
@@ -35,6 +41,9 @@
 				}
 			).success(function(data,status,headers,config) 
 				{
+            $rootScope.username = data.username;
+            $rootScope.empId = data.empId;
+            alert($rootScope.empId);
             $rootScope.role = data.empType;
             console.log('role in http'+$rootScope.role);
 		 	if(data.empType=='TrainingExecutive')
@@ -105,3 +114,60 @@
         });
      }
  });
+
+myApp.controller('delController',function($scope,$http,$location)
+				 {
+	$scope.deleteTraining = function(){
+			alert("I got executed");
+			$http(
+			{
+				method: 'POST',
+				url:"http://localhost:8080/springmvchibernate/delete",
+				data : $scope.training,
+				headers :{'Content-Type' : 'application/json'}
+			
+			}
+				).success(function(data,status,headers,config)
+			{
+			console.log("Delete Training controller");
+			console.log();
+				
+		}).error(function(data,status,headers,config)
+				 {
+			console.log("error");
+			$location.path('/')
+			
+		});
+		
+	}
+});
+
+myApp.controller('searchTraining',function($rootScope,$scope,$http,$location)
+				 {
+   
+	
+    $scope.search = function(){
+            
+            $scope.training.trainId = $rootScope.empId 
+    console.log($scope);
+			$http(
+			{
+				method: 'POST',
+				url:"http://localhost:8080/springmvchibernate/searchtraining",
+				data : $scope.training,
+				headers :{'Content-Type' : 'application/json'}
+			
+			}
+				).success(function(data,status,headers,config)
+			{
+                console.log("successfully searched");
+                console.log(data);
+		}).error(function(data,status,headers,config)
+				 {
+			console.log("error");
+			$location.path('/')
+			
+		});
+		
+	}
+});
