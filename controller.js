@@ -147,11 +147,10 @@ myApp.controller('searchTraining',function($rootScope,$scope,$http,$location)
    
 	
     $scope.search = function(){
-            
-            $scope.training.trainId = $rootScope.empId 
-    console.log($scope);
-			$http(
+         $scope.training.trainId = $rootScope.empId;    
+        $http(
 			{
+               
 				method: 'POST',
 				url:"http://localhost:8080/springmvchibernate/searchtraining",
 				data : $scope.training,
@@ -168,6 +167,5 @@ myApp.controller('searchTraining',function($rootScope,$scope,$http,$location)
 			$location.path('/')
 			
 		});
-		
-	}
+    }
 });
