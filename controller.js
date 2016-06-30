@@ -145,7 +145,6 @@ myApp.controller('delController',function($scope,$http,$location)
 myApp.controller('searchTraining',function($rootScope,$scope,$http,$location)
 				 {
    
-	
     $scope.search = function(){
          $scope.training.trainId = $rootScope.empId;    
         $http(

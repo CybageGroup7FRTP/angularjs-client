@@ -1,4 +1,69 @@
 
+<div  class="form-group" ng-controller="registerTraining">
+	<div class="col-md-3"></div>
+	<div class="col-md-6">
+	<h1 align="center" class="text-primary">REGISTER PAGE</h1>
+	<form  class="from-role" ng-submit="postData()">
+		<table class="table table-striped table-hover" align="center">
+		<tr class="bg-danger">
+		<td>Training Name</td>
+		<td><input type="text" name="" placeholder="Training Name" ng-model="training.name"></td>
+		</tr>
+		<tr class="bg-success">
+		<td>Start Date</td>
+		<td><input type="date" name="" ng-model="training.startDate"></td>
+		</tr>
+		<tr class="bg-danger">
+		<td>Vacancy</td>
+		<td><input type="number" name="" max="60" min="1" ng-model="training.vacancy"></td>
+		</tr>
+		<tr class="bg-success">
+		<td>Location</td>
+		<td> <input type="text" name="" placeholder="Location" ng-model="training.location"></td>
+		</tr>
+		<tr class="bg-danger">
+		<td>Start Time</td>
+		<td><input type="time" name="" ng-model="training.startTime"></td>
+		</tr>
+		<tr class="bg-success">
+		<td>End Time</td>
+		<td><input type="time" name="" ng-model="training.endTime"></td>
+		</tr>
+		<tr class="bg-danger">
+		<td>Duration(In days)</td>
+		<td><input type="number" name="" min="1" ng-model="training.duration"></td>
+		</tr>
+		<tr class="bg-success">
+		<td>Training Executive</td>
+		<td><input type="text" name="" placeholder="" ng-model="training.trainingExecutive"></td>
+		</tr>
+		<tr class="bg-danger">
+		<td>Type</td>
+		<td> <input type="text" name="" placeholder="Technical or Softskill" ng-model="training.type"></td>
+		</tr>
+		<tr class="bg-success">
+		<td>Trainer Name</td>
+		<td><input type="text" name="" placeholder="TrainerName" ng-model="training.trainerName"></td>
+		</tr>
+		<tr class="bg-danger">
+		<td>Nominate</td>
+		<td><input type="text" name="" placeholder="emailId or Group" ng-model="training.nominate"></td>
+		</tr>
+		<tr class="bg-success">
+		<td>Targeted Audience</td>
+		<td><input type="text" name="" placeholder="Targeted Audience" ng-model="training.targetedAudience"></td>
+		</tr>
+		<tr>
+		<td></td>
+		<td><input type="submit" class="btn btn-info btn-block" value="Add Training"></td>
+		</tr>
+		</table>	
+	</form>
+	</div>
+	<div class="col-md-3"></div>
+</div>
+
+<!--
 <div ng-controller="registerTraining">
 	<form ng-submit="postData()">
 		Training Name: <input type="text" name="" placeholder="Training Name" 
@@ -23,10 +88,10 @@
 		<br>
 		Trainer Name: <input type="text" name="" placeholder="TrainerName" ng-model="training.trainerName">
 		<br>
-		Nominate: <input type="text" name="" placeholder="emailId or Group" ng-model="training.nominate">
+		Nominate: <input type="text" name="" placeholder="EmpId or Group" ng-model="training.nominate">
 		<br>
 		Targeted Audience: <input type="text" name="" placeholder="Targeted Audience" ng-model="training.targetedAudience">
 		<br>
 		<input type="submit" vlaue="Add Training">
 	</form>
-</div>
+</div>-->
