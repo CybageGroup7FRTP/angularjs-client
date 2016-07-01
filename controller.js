@@ -93,14 +93,11 @@
  {
      $scope.postData = function()
      {
-        var training = $scope.training;
-        console.log(training); 
-     
-     
-       $http(
+        $scope.training.trainingExecId = $rootScope.empId;
+        $http(
 				{   method:'POST',
 					url:"http://localhost:8080/springmvchibernate/registertraining",
-					data: training,
+					data: $scope.training,
 					headers: {'Content-Type' : 'application/json'}
 				}
 			).success(function(data,status,headers,config) 
@@ -147,9 +144,10 @@ myApp.controller('searchTraining',function($rootScope,$scope,$http,$location)
 {
     $scope.searchbar = true;
     $scope.showsession = false;
+    
     $scope.search = function(){
-         $scope.searchbar = true;
-        $scope.searchbarTrainigList = false;
+    $scope.searchbar = true;
+    $scope.searchbarTrainigList = false;
     $scope.showsession = false;
     $scope.training.trainId = $rootScope.empId;
         $http(
@@ -205,4 +203,40 @@ myApp.controller('searchTraining',function($rootScope,$scope,$http,$location)
 			
 		});
     }
+    
+    $scope.searchtrainingsaddedbyme = function()
+    {
+        
+        $scope.searchbar = true;
+        $scope.searchbarTrainigList = false;
+        $scope.showsession = false;
+        $scope.training.trainingExecId = $rootScope.empId;
+        $http(
+			{
+               
+				method: 'POST',
+				url:"http://localhost:8080/springmvchibernate/addedtrainings",
+				data : $scope.training,
+				headers :{'Content-Type' : 'application/json'}
+			
+			}
+				).success(function(data,status,headers,config)
+			{
+                console.log('Training Executive '+data);
+                console.log("successfully searched");
+                $scope.trainingRec = data;
+                $scope.searchbar = false;
+                $scope.searchbarTrainigList = true;
+                $scope.showsession = false;
+                //$location.path = '/viewtraining';
+		}).error(function(data,status,headers,config)
+				 {
+			console.log("error");
+			$location.path('/')
+			
+		});
+    }
+    
 });
+
+
