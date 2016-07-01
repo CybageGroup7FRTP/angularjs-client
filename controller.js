@@ -62,7 +62,8 @@
          {
                 console.log("error occured");
                 $scope.message = 'Server is down. Please try again after some time';
-		 	    $location.path('/');
+		 	    $rootScope.role = "";
+                $location.path('/');
         });
     }
     
@@ -143,10 +144,14 @@ myApp.controller('delController',function($scope,$http,$location)
 });
 
 myApp.controller('searchTraining',function($rootScope,$scope,$http,$location)
-				 {
-   
+{
+    $scope.searchbar = true;
+    $scope.showsession = false;
     $scope.search = function(){
-         $scope.training.trainId = $rootScope.empId;    
+         $scope.searchbar = true;
+        $scope.searchbarTrainigList = false;
+    $scope.showsession = false;
+    $scope.training.trainId = $rootScope.empId;
         $http(
 			{
                
@@ -158,8 +163,41 @@ myApp.controller('searchTraining',function($rootScope,$scope,$http,$location)
 			}
 				).success(function(data,status,headers,config)
 			{
+                console.log('Searched data '+data);
                 console.log("successfully searched");
-                console.log(data);
+                $scope.trainingRec = data;
+                $scope.searchbar = false;
+                $scope.searchbarTrainigList = true;
+                $scope.showsession = false;
+                //$location.path = '/viewtraining';
+		}).error(function(data,status,headers,config)
+				 {
+			console.log("error");
+			$location.path('/')
+			
+		});
+    }
+    
+    $scope.calling = function(a)
+    {
+        $scope.searchbar = false;
+        $scope.searchbarTrainigList = false;        
+        $scope.training.trainId = a;
+        $http(
+			{
+               
+				method: 'POST',
+				url:"http://localhost:8080/springmvchibernate/listsessions",
+				data : $scope.training,
+				headers :{'Content-Type' : 'application/json'}
+			
+			}
+				).success(function(data,status,headers,config)
+			{
+                console.log('Searched data '+data);
+                console.log("successfully searched");
+                $scope.sessionRec = data;
+                 $scope.showsession = true;
 		}).error(function(data,status,headers,config)
 				 {
 			console.log("error");
