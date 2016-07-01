@@ -1,1 +1,81 @@
-You're on admin's dashboard
+<div ng-controller="searchTraining">
+    <div class="row" style="margin-top: 12em"  ng-show="searchbar">
+    <div class="col-md-4"></div>
+    <div class="col-md-4" style="padding: 10px;">
+        <h4>{{$message}}</h4>
+        <br>
+            <p style="font: italic bold 22px/40px Georgia, serif;">Trainings Added By Me</p>
+        <br>
+        <form>
+            <input type="text" ng-model="training.name" class="form-control" autofocus>
+            <br>
+            <br> <input type="submit" class="btn btn-primary"
+                value="Search" style="float: right" ng-click="searchtrainingsaddedbyme()">
+        </form>
+    </div>
+    </div>
+
+    <div ng-show="searchbarTrainigList">
+    <div class="row">
+    
+    <div class="col-md-4"></div>
+    <div class="col-md-4" style="padding: 10px;">
+        <h4>{{$message}}</h4>
+        <br>
+            <p style="font: italic bold 22px/40px Georgia, serif;">Trainings Added By Me</p>
+        <br>
+        <form>
+            <input type="text" ng-model="training.name" class="form-control" style="display: inline; width: 60%;" autofocus> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="submit" class="btn btn-primary"
+                value="Search" ng-click="searchtrainingsaddedbyme()">
+        </form>
+    </div>
+    </div>
+    <div ng-repeat="records in trainingRec">
+    <br>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8" style="border-bottom: 1px solid green;">
+            <br>
+                &nbsp;&nbsp;{{ records.name }}
+                <button class="btn btn-primary" ng-click="calling(records.trainId)">Click me</button>
+            <br>
+        </div>
+    </div>
+    </div>
+    </div>
+    
+    
+    
+    <div ng-show="showsession">
+    <div class="row">
+    
+    <div class="col-md-4"></div>
+    <div class="col-md-4" style="padding: 10px;">
+        <h4>{{$message}}</h4>
+        <br>
+            <p style="font: italic bold 22px/40px Georgia, serif;">Future Trainings</p>
+        <br>
+        <form>
+            <input type="text" ng-model="training.name" class="form-control" style="display: inline; width: 60%;" autofocus> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="submit" class="btn btn-primary"
+                value="Search" ng-click="search()">
+        </form>
+    </div>
+    </div>
+    <div ng-repeat="session in sessionRec">
+    <br>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8" style="border-bottom: 1px solid green;">
+            <br>
+                &nbsp;&nbsp;{{ session[0] }}
+                &nbsp;&nbsp;{{ session[1] }}
+                &nbsp;&nbsp;{{ session[2] }}
+                &nbsp;&nbsp;{{ session[3] }}
+                &nbsp;&nbsp;{{ session[4] }}
+                &nbsp;&nbsp;{{ session[5] }}
+            <br>
+        </div>
+    </div>
+    </div>
+    </div>
+</div>
