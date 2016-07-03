@@ -1,4 +1,4 @@
- myApp = angular.module('mainApp', ['ngRoute']);
+ myApp = angular.module('mainApp', ['ngRoute' , 'ngCookies']);
 
  myApp.config(function($routeProvider) {
  	$routeProvider
@@ -23,12 +23,18 @@
     .when('/searchtraining',{
         templateUrl: 'searchtraining.html'
     })
+    .when('/mandatorytraining',{
+        templateUrl: 'mandatorytraining.html'
+    })
+    .when('/trainingsbyyou',{
+        templateUrl: 'trainingsbyyou.html'
+    })
     .otherwise({
  		redirectTo:'/'
  	});
  });
 
- myApp.controller('loginController', function($rootScope,$scope,$http,$location)
+ myApp.controller('loginController', function($rootScope,$scope,$cookies,$http,$location)
  {
  	$scope.authenticateUser = function () {
         var User = { username: $scope.tm.login.username, password: $scope.tm.login.password};
@@ -45,6 +51,10 @@
             $rootScope.empId = data.empId;
             alert($rootScope.empId);
             $rootScope.role = data.empType;
+            var favoriteCookie = $cookies.get('user');
+            //Setting a cookie
+            alert(data.username);
+            $cookies.put('user', data.username);
             console.log('role in http'+$rootScope.role);
 		 	if(data.empType=='TrainingExecutive')
                 $location.path("/admindashboard");
@@ -65,11 +75,13 @@
 		 	    $rootScope.role = "";
                 $location.path('/');
         });
+    
     }
+    
     
     $scope.navbar = function()
     {
-        var role = $rootScope.role;
+       var role = $cookies.get('user');
         if(role == 'TrainingExecutive')
             return 'adminbar.html';
         else if(role == 'Trainer')
@@ -78,6 +90,10 @@
             return 'userbar.html';
         else
             return '';
+        
+        
+        
+        
     }
     
     $scope.register = function()
@@ -103,6 +119,30 @@
 			).success(function(data,status,headers,config) 
 				{
                     console.log(data.name);
+                
+		 }).error(function(data,status,headers,config) 
+         {
+                console.log("error occured");
+                $scope.message = 'Server is down. Please try again after some time';
+		 	    $location.path('/');
+        });
+     }
+     
+     $scope.showTechnology= function (technology)
+     {
+         console.log("Technology selected is: "+technology);
+         var trainerTechnology = { name: technology };
+         console.log("Technology selected is: "+trainerTechnology)
+         $http(
+				{   method:'POST',
+					url:"http://localhost:8080/springmvchibernate/trainerwithtechnology",
+					data: trainerTechnology,
+					headers: {'Content-Type' : 'application/json'}
+				}
+			).success(function(data,status,headers,config) 
+				{
+                    console.log(data[0].empId);
+                    $scope.trainers = data;
                 
 		 }).error(function(data,status,headers,config) 
          {
@@ -140,11 +180,14 @@ myApp.controller('delController',function($scope,$http,$location)
 	}
 });
 
-myApp.controller('searchTraining',function($rootScope,$scope,$http,$location)
+myApp.controller('searchTraining',function($rootScope,$scope,$cookies,$http,$location)
 {
     $scope.searchbar = true;
     $scope.showsession = false;
-    
+    var userhomename = $cookies.get('user');
+    $scope.userhome = userhomename;
+    alert($scope.userhome);
+    console.log('Cookie Value'+$cookies.get('user'));
     $scope.search = function(){
     $scope.searchbar = true;
     $scope.searchbarTrainigList = false;
@@ -206,7 +249,7 @@ myApp.controller('searchTraining',function($rootScope,$scope,$http,$location)
     
     $scope.searchtrainingsaddedbyme = function()
     {
-        
+        alert("Hello");
         $scope.searchbar = true;
         $scope.searchbarTrainigList = false;
         $scope.showsession = false;
@@ -237,6 +280,182 @@ myApp.controller('searchTraining',function($rootScope,$scope,$http,$location)
 		});
     }
     
+    $scope.nominate = function(trainId)
+    {
+        $scope.training.trainId = trainId;
+        $scope.training.nominate = prompt("Enter EmployeeId or group Name");
+        console.log("Train Id is: "+$scope.training.trainId);
+        $http(
+			{
+               
+				method: 'POST',
+				url:"http://localhost:8080/springmvchibernate/addnomination",
+				data : $scope.training,
+				headers :{'Content-Type' : 'application/json'}
+			
+			}
+				).success(function(data,status,headers,config)
+			{
+                alert("Trainee Nominated");
+		}).error(function(data,status,headers,config)
+				 {
+			console.log("error");
+			$location.path('/');
+		});
+    }
+        
 });
+
+
+myApp.controller('mandatorytraining',function($rootScope,$scope,$http,$location)
+{
+    $scope.showsession = false;
+    
+    $scope.search = function() {
+        
+    $scope.searchbarTrainigList = true;
+    $scope.showsession = false;
+    var training ={ nominate: $rootScope.empId };
+        $http(
+			{
+               
+				method: 'POST',
+				url:"http://localhost:8080/springmvchibernate/mandatorytraining",
+				data : training,
+				headers :{'Content-Type' : 'application/json'}
+			
+			}
+				).success(function(data,status,headers,config)
+			{
+                console.log('Searched data '+data);
+                console.log("successfully searched");
+                $scope.trainingRec = data;
+                $scope.searchbar = false;
+                $scope.searchbarTrainigList = true;
+                $scope.showsession = false;
+		}).error(function(data,status,headers,config)
+				 {
+			console.log("error");
+			$location.path('/')
+			
+		});
+    }
+    
+    $scope.calling = function(a)
+    {
+        $scope.searchbar = false;
+        $scope.searchbarTrainigList = false;
+        var training = { trainId : a };
+        $http(
+			{
+               
+				method: 'POST',
+				url:"http://localhost:8080/springmvchibernate/listsessions",
+				data : training,
+				headers :{'Content-Type' : 'application/json'}
+			
+			}
+				).success(function(data,status,headers,config)
+			{
+                console.log('Searched data '+data);
+                console.log("successfully searched");
+                $scope.sessionRec = data;
+                 $scope.showsession = true;
+		}).error(function(data,status,headers,config)
+				 {
+			console.log("error");
+			$location.path('/')
+			
+		});
+    }
+    
+    $scope.callingWithdraw = function(trainingId)
+    {
+        var training = { trainId: trainingId, nominate: $rootScope.empId };
+        $http(
+			{
+               
+				method: 'POST',
+				url:"http://localhost:8080/springmvchibernate/withdrawfromtraining",
+				data : training,
+				headers :{'Content-Type' : 'application/json'}
+			
+			}
+				).success(function(data,status,headers,config)
+			{
+                alert("Nomination Withdrawn");
+		}).error(function(data,status,headers,config)
+				 {
+			console.log("error");
+			$location.path('/');
+		});
+    }
+});
+
+myApp.controller('trainingsbytrainier',function($rootScope,$scope,$http,$location)
+{
+    $scope.showsession = false;
+    
+    $scope.search = function() {
+        
+    $scope.searchbarTrainigList = true;
+    $scope.showsession = false;
+    var training ={ trainerId: $rootScope.empId };
+    $http(
+			{
+               
+				method: 'POST',
+				url:"http://localhost:8080/springmvchibernate/trainingsconductedbyme",
+				data : training,
+				headers :{'Content-Type' : 'application/json'}
+			
+			}
+				).success(function(data,status,headers,config)
+			{
+                console.log('Searched data '+data);
+                console.log("successfully searched");
+                $scope.trainingRec = data;
+                $scope.searchbar = false;
+                $scope.searchbarTrainigList = true;
+                $scope.showsession = false;
+		}).error(function(data,status,headers,config)
+				 {
+			console.log("error");
+			$location.path('/')
+			
+		});
+    }
+    
+    $scope.calling = function(a)
+    {
+        $scope.searchbar = false;
+        $scope.searchbarTrainigList = false;
+        var training = { trainId : a };
+        $http(
+			{
+               
+				method: 'POST',
+				url:"http://localhost:8080/springmvchibernate/listsessions",
+				data : training,
+				headers :{'Content-Type' : 'application/json'}
+			
+			}
+				).success(function(data,status,headers,config)
+			{
+                console.log('Searched data '+data);
+                console.log("successfully searched");
+                $scope.sessionRec = data;
+                 $scope.showsession = true;
+		}).error(function(data,status,headers,config)
+				 {
+			console.log("error");
+			$location.path('/')
+			
+		});
+    }
+    
+});
+
+
 
 

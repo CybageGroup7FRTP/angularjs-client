@@ -1,4 +1,5 @@
 <div ng-controller="searchTraining">
+    <button ng-click="getsession()">Click here to check session</button>
     <div class="row" style="margin-top: 12em"  ng-show="searchbar">
     <div class="col-md-4"></div>
     <div class="col-md-4" style="padding: 10px;">
@@ -24,9 +25,9 @@
         <br>
             <p style="font: italic bold 22px/40px Georgia, serif;">Trainings Added By Me</p>
         <br>
-        <form>
+        <form ng-submit="searchtrainingsaddedbyme()">
             <input type="text" ng-model="training.name" class="form-control" style="display: inline; width: 60%;" autofocus> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="submit" class="btn btn-primary"
-                value="Search" ng-click="searchtrainingsaddedbyme()">
+                value="Search">
         </form>
     </div>
     </div>
@@ -38,6 +39,7 @@
             <br>
                 &nbsp;&nbsp;{{ records.name }}
                 <button class="btn btn-primary" ng-click="calling(records.trainId)">Click me</button>
+                <button class="btn btn-primary" ng-click="nominate(records.trainId)">Nominate</button>
             <br>
         </div>
     </div>

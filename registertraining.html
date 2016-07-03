@@ -37,10 +37,25 @@
 		<td>Type</td>
 		<td> <input type="text" name="" placeholder="Technical or Softskill" ng-model="training.type"></td>
 		</tr>
+        <tr class="bg-success">
+		<td>Technology</td>
+		<td><select ng-model="technology" ng-click="showTechnology(technology)">
+                <option>Java</option>
+                <option>ASP.NET</option>
+                <option>PHP</option>
+                <option>Perl</option>
+                <option>BI</option>
+                <option>Cloud Computing</option>
+                <option>Manual Testing</option>
+                <option>Automation Testing</option>
+            </select>
+		</tr>
 		<tr class="bg-danger">
 		<td>Trainer Name</td>
-		<td><input type="text" name="" placeholder="TrainerName" ng-model="training.trainerName"></td>
-		</tr>
+		<td><select ng-model="training.trainerId" ng-change="showTechnology(technology)">
+                <option ng-repeat="trainer in trainers" value='{{trainer.empId}}'> {{trainer.empId}} &nbsp;&nbsp; {{trainer.name}} </option>
+            </select>
+        </tr>
 		<tr class="bg-success">
 		<td>Nominate</td>
 		<td><input type="text" name="" placeholder="emailId or Group" ng-model="training.nominate"></td>
