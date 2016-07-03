@@ -30,7 +30,22 @@
         </form>
     </div>
     </div>
-    <div ng-repeat="records in trainingRec">
+	
+	<table class="table table-striped table-bordered table-hover table-condensed">
+        <tr>
+                <th>Training Name</th><th>Training Start Date</th><th>Training Start Time</th><th>Location</th><th>Duration</th><th>Targeted Audience</th>
+            </tr>
+            <tr data-ng-repeat="records in trainingRec">
+                <td> {{ records.name }}</td>
+                <td>{{records.startDate}}</td>
+                <td>{{records.startTime}}</td>
+                <td>{{records.location}}</td>
+                <td>{{records.duration}}</td>
+                <td>{{records.targetedAudience}}</td>
+            </tr>
+        </table>
+        
+    <!--<div ng-repeat="records in trainingRec">
     <br>
     <div class="row">
         <div class="col-md-2"></div>
@@ -42,7 +57,7 @@
         </div>
     </div>
     </div>
-    </div>
+    </div> -->
     
     
     

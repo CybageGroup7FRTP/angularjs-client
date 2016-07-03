@@ -35,7 +35,7 @@
         console.log(User);
         $http(
 				{   method:'POST',
-					url:"http://localhost:8080/springmvchibernate/login",
+					url:"http://localhost:9094/springmvchibernate/login",
 					data: User,
 					headers: {'Content-Type' : 'application/json'}
 				}
@@ -96,7 +96,7 @@
         $scope.training.trainingExecId = $rootScope.empId;
         $http(
 				{   method:'POST',
-					url:"http://localhost:8080/springmvchibernate/registertraining",
+					url:"http://localhost:9094/springmvchibernate/registertraining",
 					data: $scope.training,
 					headers: {'Content-Type' : 'application/json'}
 				}
@@ -120,7 +120,7 @@ myApp.controller('delController',function($scope,$http,$location)
 			$http(
 			{
 				method: 'POST',
-				url:"http://localhost:8080/springmvchibernate/delete",
+				url:"http://localhost:9094/springmvchibernate/delete",
 				data : $scope.training,
 				headers :{'Content-Type' : 'application/json'}
 			
@@ -154,7 +154,7 @@ myApp.controller('searchTraining',function($rootScope,$scope,$http,$location)
 			{
                
 				method: 'POST',
-				url:"http://localhost:8080/springmvchibernate/searchtraining",
+				url:"http://localhost:9094/springmvchibernate/searchtraining",
 				data : $scope.training,
 				headers :{'Content-Type' : 'application/json'}
 			
@@ -185,7 +185,7 @@ myApp.controller('searchTraining',function($rootScope,$scope,$http,$location)
 			{
                
 				method: 'POST',
-				url:"http://localhost:8080/springmvchibernate/listsessions",
+				url:"http://localhost:9094/springmvchibernate/listsessions",
 				data : $scope.training,
 				headers :{'Content-Type' : 'application/json'}
 			
@@ -215,7 +215,7 @@ myApp.controller('searchTraining',function($rootScope,$scope,$http,$location)
 			{
                
 				method: 'POST',
-				url:"http://localhost:8080/springmvchibernate/addedtrainings",
+				url:"http://localhost:9094/springmvchibernate/addedtrainings",
 				data : $scope.training,
 				headers :{'Content-Type' : 'application/json'}
 			
