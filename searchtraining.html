@@ -1,5 +1,5 @@
 <div ng-controller="searchTraining">
-    <div class="row" style="margin-top: 12em"  ng-show="searchbar">
+    <div class="row" style="margin-top: 12em" ng-show="searchbar">
     <div class="col-md-4"></div>
     <div class="col-md-4" style="padding: 10px;">
         <h4>{{$message}}</h4>
@@ -37,7 +37,8 @@
         <div class="col-md-8" style="border-bottom: 1px solid green;">
             <br>
                 &nbsp;&nbsp;{{ records.name }}
-                <button class="btn btn-primary" ng-click="calling(records.trainId)">Click me</button>
+                <button class="btn btn-primary" ng-click="calling(records.trainId)">View Sessions</button>
+                <button class="btn btn-primary" ng-click="callingWithdraw(records)">Withdraw</button>
             <br>
         </div>
     </div>

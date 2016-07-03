@@ -1,0 +1,40 @@
+<div ng-controller="mandatorytraining" ng-init="search()">
+    <div ng-show="searchbarTrainigList">
+        <div ng-repeat="records in trainingRec">
+        <br>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8" style="border-bottom: 1px solid green;">
+                <br>
+                    &nbsp;&nbsp;{{ records.name }}
+                    <button class="btn btn-primary" ng-click="calling(records.trainId)">View Sessions</button>
+                    <button class="btn btn-primary" ng-click="callingWithdraw(records.trainId)">Withdraw</button>
+                <br>
+            </div>
+        </div>
+        </div>
+        </div>
+
+
+
+        <div ng-show="showsession">
+        <div ng-repeat="session in sessionRec">
+        <br>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8" style="border-bottom: 1px solid green;">
+                <br>
+                    &nbsp;&nbsp;{{ session[0] }}
+                    &nbsp;&nbsp;{{ session[1] }}
+                    &nbsp;&nbsp;{{ session[2] }}
+                    &nbsp;&nbsp;{{ session[3] }}
+                    &nbsp;&nbsp;{{ session[4] }}
+                    &nbsp;&nbsp;{{ session[5] }}
+                <br>
+            </div>
+        </div>
+        </div>
+        </div>
+</div>
+
+
