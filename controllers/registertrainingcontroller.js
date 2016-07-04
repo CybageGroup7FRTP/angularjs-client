@@ -13,6 +13,7 @@
 				{
                     console.log(data.name);
                     $scope.message = data.name+' Training Added'
+                    alert($scope.message);
                     $scope.training = {};    
 		 }).error(function(data,status,headers,config) 
          {
