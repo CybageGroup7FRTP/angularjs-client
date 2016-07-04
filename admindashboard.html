@@ -1,21 +1,4 @@
 <div ng-controller="searchTraining">
-    <button ng-click="getsession()">Click here to check session</button>
-    <div class="row" style="margin-top: 12em"  ng-show="searchbar">
-    <div class="col-md-4"></div>
-    <div class="col-md-4" style="padding: 10px;">
-        <h4>{{$message}}</h4>
-        <br>
-            <p style="font: italic bold 22px/40px Georgia, serif;">Trainings Added By Me</p>
-        <br>
-        <form>
-            <input type="text" ng-model="training.name" class="form-control" autofocus>
-            <br>
-            <br> <input type="submit" class="btn btn-primary"
-                value="Search" style="float: right" ng-click="searchtrainingsaddedbyme()">
-        </form>
-    </div>
-    </div>
-
     <div ng-show="searchbarTrainigList">
     <div class="row">
     
@@ -25,59 +8,86 @@
         <br>
             <p style="font: italic bold 22px/40px Georgia, serif;">Trainings Added By Me</p>
         <br>
-        <form ng-submit="searchtrainingsaddedbyme()">
+        <form>
             <input type="text" ng-model="training.name" class="form-control" style="display: inline; width: 60%;" autofocus> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="submit" class="btn btn-primary"
-                value="Search">
+                value="Search" ng-click="searchtrainingsaddedbyme()">
         </form>
     </div>
     </div>
-    <div ng-repeat="records in trainingRec">
-    <br>
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8" style="border-bottom: 1px solid green;">
-            <br>
-                &nbsp;&nbsp;{{ records.name }}
-                <button class="btn btn-primary" ng-click="calling(records.trainId)">Click me</button>
-                <button class="btn btn-primary" ng-click="nominate(records.trainId)">Nominate</button>
-            <br>
-        </div>
-    </div>
-    </div>
-    </div>
-    
+	
+	
+	<table class="table table-striped table-bordered table-hover table-condensed">
+        <tr>
+                <th>Training Name</th><th>Training Start Date</th><th>Training Start Time</th><th>Training End Time</th><th>Location</th><th>Duration</th><th>Targeted Audience</th>
+            </tr>
+            <tr data-ng-repeat="records in trainingRec">
+                <td ng-click="calling(records[0])">{{ records[4] }}</td>
+                <td ng-click="calling(records[0])">{{records[5]}}</td>
+                <td ng-click="calling(records[0])">{{records[6]}}</td>
+                <td ng-click="calling(records[0])">{{records[2]}}</td>
+                <td ng-click="calling(records[0])">{{records[3]}}</td>
+                <td ng-click="calling(records[0])">{{records[1]}}</td>
+                <td ng-click="calling(records[0])">{{records[7]}}</td>
+                <td><button class="btn btn-primary" ng-click="nominate(records[0])">Nominate</button></td>
+        </tr>    
+        </table>
+	</div>
+
+        
     
     
     <div ng-show="showsession">
     <div class="row">
-    
+   
+		
     <div class="col-md-4"></div>
     <div class="col-md-4" style="padding: 10px;">
         <h4>{{$message}}</h4>
         <br>
-            <p style="font: italic bold 22px/40px Georgia, serif;">Future Trainings</p>
+            <p style="font: italic bold 22px/40px Georgia, serif;">Trainings Added By Me</p>
         <br>
         <form>
             <input type="text" ng-model="training.name" class="form-control" style="display: inline; width: 60%;" autofocus> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="submit" class="btn btn-primary"
-                value="Search" ng-click="search()">
+                value="Search" ng-click="searchtrainingsaddedbyme()">
         </form>
     </div>
-    </div>
-    <div ng-repeat="session in sessionRec">
-    <br>
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8" style="border-bottom: 1px solid green;">
-            <br>
-                &nbsp;&nbsp;{{ session[0] }}
-                &nbsp;&nbsp;{{ session[1] }}
-                &nbsp;&nbsp;{{ session[2] }}
-                &nbsp;&nbsp;{{ session[3] }}
-                &nbsp;&nbsp;{{ session[4] }}
-                &nbsp;&nbsp;{{ session[5] }}
-            <br>
-        </div>
-    </div>
-    </div>
+		</div>
+    
+   
+		
+		
+		
+		<table class="table table-striped table-bordered table-hover table-condensed">
+        <tr>
+                <th>Session No</th><th> Date</th><th> Start Time</th><th>End Time</th><th>Venue</th>
+            </tr>
+			<tr data-ng-repeat="session in sessionRec">
+				<td>{{session[3]}}</td>
+                <td>{{session[2]}}</td>
+                <td>{{session[1]}}</td>                
+                <td>{{session[4]}}</td>
+				<td>{{session[5]}}</td>
+            </tr>
+        </table>
+   
     </div>
 </div>
+
+</div>
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

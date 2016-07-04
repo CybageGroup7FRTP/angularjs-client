@@ -1,22 +1,23 @@
 <div ng-controller="mandatorytraining" ng-init="search()">
     <div ng-show="searchbarTrainigList">
-        <div ng-repeat="records in trainingRec">
-        <br>
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8" style="border-bottom: 1px solid green;">
-                <br>
-                    &nbsp;&nbsp;{{ records.name }}
-                    <button class="btn btn-primary" ng-click="calling(records.trainId)">View Sessions</button>
-                    <button class="btn btn-primary" ng-click="callingWithdraw(records.trainId)">Withdraw</button>
-                <br>
-            </div>
-        </div>
-        </div>
-        </div>
-
-
-
+        
+        
+        <table class="table table-striped table-bordered table-hover table-condensed">
+        <tr>
+                <th>Training Name</th><th>Training Start Date</th><th>Training Start Time</th><th>Location</th><th>Duration</th><th>Targeted Audience</th>
+            </tr>
+        <tr data-ng-repeat="records in trainingRec">
+                <td ng-click="calling(records.trainId)"> {{ records.name }}</td>
+                <td ng-click="calling(records.trainId)">{{records.startDate}}</td>
+                <td ng-click="calling(records.trainId)">{{records.startTime}}</td>
+                <td ng-click="calling(records.trainId)">{{records.location}}</td>
+                <td ng-click="calling(records.trainId)">{{records.duration}}</td>
+                <td ng-click="calling(records.trainId)">{{records.targetedAudience}}</td>
+                <td><button class="btn btn-primary" ng-click="callingWithdraw(records.trainId)">Withdraw</button></td>
+            </tr>
+        </table>
+	</div>
+    
         <div ng-show="showsession">
         <div ng-repeat="session in sessionRec">
         <br>
@@ -36,5 +37,6 @@
         </div>
         </div>
 </div>
+<script type="text/javascript" src="controllers/mandatorycontroller.js"></script>
 
 
