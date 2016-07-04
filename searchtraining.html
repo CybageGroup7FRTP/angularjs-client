@@ -31,12 +31,13 @@
     </div>
     </div>
 	
+	
 	<table class="table table-striped table-bordered table-hover table-condensed">
         <tr>
                 <th>Training Name</th><th>Training Start Date</th><th>Training Start Time</th><th>Location</th><th>Duration</th><th>Targeted Audience</th>
             </tr>
-            <tr data-ng-repeat="records in trainingRec">
-                <td> {{ records.name }}</td>
+            <tr data-ng-repeat="records in trainingRec" ng-click="calling(records.trainId)">
+                <td ng-click="alert('hello')"> {{ records.name }}</td>
                 <td>{{records.startDate}}</td>
                 <td>{{records.startTime}}</td>
                 <td>{{records.location}}</td>
@@ -44,16 +45,15 @@
                 <td>{{records.targetedAudience}}</td>
             </tr>
         </table>
+	</div>
+
         
     <!--<div ng-repeat="records in trainingRec">
     <br>
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8" style="border-bottom: 1px solid green;">
-            <br>
-                &nbsp;&nbsp;{{ records.name }}
-                <button class="btn btn-primary" ng-click="calling(records.trainId)">Click me</button>
-            <br>
+            
         </div>
     </div>
     </div>
@@ -63,7 +63,8 @@
     
     <div ng-show="showsession">
     <div class="row">
-    
+   
+		
     <div class="col-md-4"></div>
     <div class="col-md-4" style="padding: 10px;">
         <h4>{{$message}}</h4>
@@ -75,22 +76,28 @@
                 value="Search" ng-click="search()">
         </form>
     </div>
-    </div>
-    <div ng-repeat="session in sessionRec">
-    <br>
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8" style="border-bottom: 1px solid green;">
-            <br>
-                &nbsp;&nbsp;{{ session[0] }}
-                &nbsp;&nbsp;{{ session[1] }}
-                &nbsp;&nbsp;{{ session[2] }}
-                &nbsp;&nbsp;{{ session[3] }}
-                &nbsp;&nbsp;{{ session[4] }}
-                &nbsp;&nbsp;{{ session[5] }}
-            <br>
-        </div>
-    </div>
-    </div>
+		</div>
+    
+   
+		
+		
+		
+		<table class="table table-striped table-bordered table-hover table-condensed">
+        <tr>
+                <th>Session No</th><th> Date</th><th> Start Time</th><th>End Time</th><th>Venue</th>
+            </tr>
+			Session Record {{sessionRec}}
+            <tr data-ng-repeat="session in sessionRec">
+				<td> {{session[0]}}</td>
+                <td> {{session[1]}}</td>
+                <td>{{session[2]}}</td>
+                <td>{{session[3]}}</td>
+                <td>{{session[4]}}</td>
+				<td>{{session[5]}}</td>
+				
+                
+            </tr>
+        </table>
+   
     </div>
 </div>

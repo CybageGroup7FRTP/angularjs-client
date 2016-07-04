@@ -35,7 +35,7 @@
         console.log(User);
         $http(
 				{   method:'POST',
-					url:"http://localhost:9094/springmvchibernate/login",
+					url:"http://localhost:8080/springmvchibernate/login",
 					data: User,
 					headers: {'Content-Type' : 'application/json'}
 				}
@@ -96,7 +96,7 @@
         $scope.training.trainingExecId = $rootScope.empId;
         $http(
 				{   method:'POST',
-					url:"http://localhost:9094/springmvchibernate/registertraining",
+					url:"http://localhost:8080/springmvchibernate/registertraining",
 					data: $scope.training,
 					headers: {'Content-Type' : 'application/json'}
 				}
@@ -113,6 +113,47 @@
      }
  });
 
+
+myApp.controller('delController',function($scope,$http,$location,$rootScope)
+				 {
+			$scope.showTable = true;
+			console.log("Emp Id = "+$rootScope.empId);
+			alert("inside del controller");
+		var empId = {trainingExecId :$rootScope.empId}
+			
+		
+			$http(
+			{
+				method: 'POST',
+				url:"http://localhost:8080/springmvchibernate/showTrainings",
+				data :empId,
+				headers :{'Content-Type' : 'application/json'}
+			
+			}
+				).success(function(data,status,headers,config)
+			{
+			console.log("executed  del controller" +data);
+				console.log(data);
+			$scope.tableValues = data;
+				
+		}).error(function(data,status,headers,config)
+				 {
+			console.log("error");
+			$location.path('/')
+			
+		});
+		
+	
+});
+
+
+
+
+
+
+
+
+/*
 myApp.controller('delController',function($scope,$http,$location)
 				 {
 	$scope.deleteTraining = function(){
@@ -120,7 +161,7 @@ myApp.controller('delController',function($scope,$http,$location)
 			$http(
 			{
 				method: 'POST',
-				url:"http://localhost:9094/springmvchibernate/delete",
+				url:"http://localhost:8080/springmvchibernate/delete",
 				data : $scope.training,
 				headers :{'Content-Type' : 'application/json'}
 			
@@ -139,22 +180,27 @@ myApp.controller('delController',function($scope,$http,$location)
 		
 	}
 });
+*/
 
 myApp.controller('searchTraining',function($rootScope,$scope,$http,$location)
 {
     $scope.searchbar = true;
     $scope.showsession = false;
-    
+    $scope.sessions = function()
+		{
+			alert("sessions");
+		}
     $scope.search = function(){
     $scope.searchbar = true;
     $scope.searchbarTrainigList = false;
     $scope.showsession = false;
     $scope.training.trainId = $rootScope.empId;
+		console.log("EMPID"+$rootScope.empId);
         $http(
 			{
                
 				method: 'POST',
-				url:"http://localhost:9094/springmvchibernate/searchtraining",
+				url:"http://localhost:8080/springmvchibernate/searchtraining",
 				data : $scope.training,
 				headers :{'Content-Type' : 'application/json'}
 			
@@ -185,17 +231,17 @@ myApp.controller('searchTraining',function($rootScope,$scope,$http,$location)
 			{
                
 				method: 'POST',
-				url:"http://localhost:9094/springmvchibernate/listsessions",
+				url:"http://localhost:8080/springmvchibernate/listsessions",
 				data : $scope.training,
 				headers :{'Content-Type' : 'application/json'}
 			
 			}
 				).success(function(data,status,headers,config)
 			{
-                console.log('Searched data '+data);
+                console.log('Searched data calling function '+data);
                 console.log("successfully searched");
                 $scope.sessionRec = data;
-                 $scope.showsession = true;
+				$scope.showsession = true;
 		}).error(function(data,status,headers,config)
 				 {
 			console.log("error");
@@ -215,7 +261,7 @@ myApp.controller('searchTraining',function($rootScope,$scope,$http,$location)
 			{
                
 				method: 'POST',
-				url:"http://localhost:9094/springmvchibernate/addedtrainings",
+				url:"http://localhost:8080/springmvchibernate/addedtrainings",
 				data : $scope.training,
 				headers :{'Content-Type' : 'application/json'}
 			
